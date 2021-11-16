@@ -14,7 +14,9 @@ to generate this file without the comments in this block.
 , dependencies =
   [ "console"
   , "effect"
+  , "exceptions"
   , "halogen"
+  , "maybe"
   , "prelude"
   , "psci-support"
   , "react"
@@ -23,6 +25,7 @@ to generate this file without the comments in this block.
   , "react-basic-hooks"
   , "react-halo"
   , "tuples"
+  , "web-dom"
   , "web-html"
   ]
 , packages = ./packages.dhall

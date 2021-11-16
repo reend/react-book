@@ -7,9 +7,16 @@ import React.Basic.DOM (render)
 import React.Basic.Hooks as React
 import React.Basic.Hooks (Component, component, useState)
 import React.Basic.DOM as R
+import Effect (Effect)
+import Effect.Exception (throw)
+import Web.DOM.NonElementParentNode (getElementById)
+import Web.HTML.HTMLDocument (toNonElementParentNode)
+import Web.HTML.Window (document)
+import Web.HTML (window)
+import Data.Maybe (Maybe(..))
 
-main :: Component Int
-main = do
+counter :: Component Int
+counter = do
   component "Counter" \initialValue -> React.do
     counter /\ setCounter <- useState initialValue
 
@@ -20,3 +27,11 @@ main = do
           , children:
               [ R.text $ "Increment: " <> show counter ]
           }
+
+main :: Effect Unit
+main = do
+  appRoot <- getElementById "app" =<< (map toNonElementParentNode $ document =<< window)
+  counter <- counter
+  case appRoot of
+    Just appRoot' -> render (counter 0) appRoot'
+    Nothing -> throw "App root not found!"
